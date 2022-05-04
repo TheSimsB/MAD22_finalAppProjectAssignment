@@ -81,7 +81,7 @@ private List<Meals.Meal> foodlist;
             Meals.Meal randomMeal = suggestMeal.get(n);
 
             Notification notification = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
-                    .setContentTitle("Deep Recipes")
+                    .setContentTitle("GetFat")
                     .setContentText(getString(R.string.suggestion) + randomMeal.getStrMeal() + "?")
 
                     .build();
