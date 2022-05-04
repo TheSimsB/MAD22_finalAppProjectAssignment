@@ -42,11 +42,6 @@ private List<Meals.Meal> foodlist;
         new LongOperation().execute();
 
         repository = Repository.getInstance(getApplication());
-        //repository.getAllMeals().observe(this, new Observer<Meals>() )
-
-/*        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "production")
-                .allowMainThreadQueries()
-                .build();*/
 
     }
 
@@ -79,18 +74,20 @@ private List<Meals.Meal> foodlist;
         List<Meals.Meal> tempList = repository.getAllMeals();
         ArrayList<Meals.Meal> suggestMeal = new ArrayList<>(tempList);
 
-        Random rand = new Random();
-        int n = rand.nextInt(suggestMeal.size());
+        if (suggestMeal.size() > 0) {
+            Random rand = new Random();
+            int n = rand.nextInt(suggestMeal.size());
 
-        Meals.Meal randomMeal = suggestMeal.get(n);
+            Meals.Meal randomMeal = suggestMeal.get(n);
 
-        Notification notification = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
-                .setContentTitle("Deep Recipes")
-                .setContentText(getString(R.string.suggestion)+randomMeal.getStrMeal()+"?")
+            Notification notification = new NotificationCompat.Builder(ForegroundService.this, CHANNEL_ID)
+                    .setContentTitle("Deep Recipes")
+                    .setContentText(getString(R.string.suggestion) + randomMeal.getStrMeal() + "?")
 
-                .build();
-        startForeground(1, notification);
-        //stopSelf();
+                    .build();
+            startForeground(1, notification);
+            //stopSelf();
+        }
     }
 
     //https://www.youtube.com/watch?v=tTbd1Mfi-Sk
@@ -108,7 +105,7 @@ private List<Meals.Meal> foodlist;
             while (true)
             {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(1000);
                     createNotification();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
