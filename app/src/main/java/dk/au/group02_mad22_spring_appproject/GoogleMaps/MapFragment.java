@@ -2,11 +2,8 @@
 
 package dk.au.group02_mad22_spring_appproject.GoogleMaps;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
@@ -17,9 +14,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +26,7 @@ import dk.au.group02_mad22_spring_appproject.R;
 
 public class MapFragment extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
-    private GoogleMap mMap;
+    private GoogleMap gMaps;
 
 
     @Override
@@ -51,7 +45,7 @@ public class MapFragment extends FragmentActivity implements OnMapReadyCallback,
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        gMaps = googleMap;
 
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
@@ -80,8 +74,9 @@ public class MapFragment extends FragmentActivity implements OnMapReadyCallback,
         double latitude;
         double longitude;
         if(location == null) {
-            latitude = 56.1629;
-            longitude = 10.2039;
+            latitude = 56.172198;
+            longitude = 10.191951;
+            gMaps.moveCamera(CameraUpdateFactory.zoomTo(15));
         }
         else {
             latitude = location.getLatitude();
@@ -89,8 +84,8 @@ public class MapFragment extends FragmentActivity implements OnMapReadyCallback,
         }
 
         LatLng shannon = new LatLng(latitude,longitude);
-        mMap.addMarker(new MarkerOptions().position(shannon).title("You're here"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(shannon));
+        gMaps.addMarker(new MarkerOptions().position(shannon).title("You're here"));
+        gMaps.moveCamera(CameraUpdateFactory.newLatLng(shannon));
     }
 
     @Override
